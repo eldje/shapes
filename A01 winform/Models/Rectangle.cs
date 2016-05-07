@@ -2,7 +2,7 @@
 {
     class Rectangle : Shape
     {
-        public Rectangle(string name, int width, int height) : base(name)
+        public Rectangle(string name, double width, double height) : base(name)
         {
             this.Width = width;
             this.Height = height;
@@ -10,8 +10,8 @@
             SetColor();
         }
 
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
 
         private void UpdateArea()
         {

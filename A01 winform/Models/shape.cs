@@ -1,4 +1,6 @@
-﻿namespace A01_winform.Models
+﻿using System.Runtime.InteropServices;
+
+namespace A01_winform.Models
 {
     enum Color
     {
@@ -18,7 +20,11 @@
         public string Name { get; set; }
         public double Area { get; set; }
         public Color Color { get; set; }
-
+        
+        public override string ToString()
+        {
+            return Name;
+        }
         protected void SetColor()
         {
             if (Area < 50)

@@ -2,7 +2,7 @@
 {
     class Triangle : Shape
     {
-        public Triangle(string name, int basis, int height) : base(name)
+        public Triangle(string name, double basis, double height) : base(name)
         {
             this.Basis = basis;
             this.Height = height;
@@ -10,8 +10,8 @@
             SetColor();
         }
 
-        public int Basis { get; set; }
-        public int Height { get; set; }
+        public double Basis { get; set; }
+        public double Height { get; set; }
 
         private void UpdateArea()
         {

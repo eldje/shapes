@@ -18,7 +18,7 @@ namespace A01_winform.Repository
     {
         public List<Shape> Shapes { get; set; } = new List<Shape>();
 
-        public void AddShape(ShapeForm shapeForm, string name, params int[] args)
+        public void AddShape(ShapeForm shapeForm, string name, params double[] args)
         {
             switch (shapeForm)
             {

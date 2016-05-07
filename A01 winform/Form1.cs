@@ -16,6 +16,15 @@ namespace A01_winform
             lstGreen.DisplayMember = "Name";
             lstOrange.DisplayMember = "Name";
             lstRed.DisplayMember = "Name";
+            lblLargestGreenArea.Tag = "'Area'";
+            lblLargestGreenShape.Tag = "'Name'";
+            lblLargestRedArea.Tag = "'Area'";
+            lblLargestRedShape.Tag = "'Name'";
+            lblLargestOrangeArea.Tag = "'Area'";
+            lblLargestOrangehape.Tag = "'Name'";
+            lblLargestShape.Tag = "'Name'";
+            lblLargestShapeArea.Tag = "'Area'";
+            lblLargestTotalArea.Tag = "'Area'";
         }
 
         #region methods to instantiate objects and refresh screens
@@ -28,21 +37,22 @@ namespace A01_winform
             switch (cmbSelectShape.SelectedItem.ToString())
             {
                 case "Circle":
-                    shapeRepository.AddShape(ShapeForm.Circle, txtbName.Text, Convert.ToInt32(txtbProp1.Text));
+                    shapeRepository.AddShape(ShapeForm.Circle, txtbName.Text, Convert.ToDouble(txtbProp1.Text));
                     break;
                 case "Square":
-                    shapeRepository.AddShape(ShapeForm.Square, txtbName.Text, Convert.ToInt32(txtbProp1.Text));
+                    shapeRepository.AddShape(ShapeForm.Square, txtbName.Text, Convert.ToDouble(txtbProp1.Text));
                     break;
                 case "Rectangle":
-                    shapeRepository.AddShape(ShapeForm.Rectangle, txtbName.Text, Convert.ToInt32(txtbProp1.Text),
-                        Convert.ToInt32(txtbProp2.Text));
+                    shapeRepository.AddShape(ShapeForm.Rectangle, txtbName.Text, Convert.ToDouble(txtbProp1.Text),
+                        Convert.ToDouble(txtbProp2.Text));
                     break;
                 case "Triangle":
-                    shapeRepository.AddShape(ShapeForm.Triangle, txtbName.Text, Convert.ToInt32(txtbProp1.Text),
-                        Convert.ToInt32(txtbProp2.Text));
+                    shapeRepository.AddShape(ShapeForm.Triangle, txtbName.Text, Convert.ToDouble(txtbProp1.Text),
+                        Convert.ToDouble(txtbProp2.Text));
                     break;
             }
             RefreshForm();
+            RefreshLabels();
         }
 
         //Refresh listviews & clear all textboxes
@@ -75,13 +85,27 @@ namespace A01_winform
             txtbProp2.Visible = false;
             btnAddProp2.Visible = false;
         }
+        private void RefreshLabels()
+        {
+            lblLargestGreenArea.Refresh();
+            lblLargestGreenShape.Refresh();
+            lblLargestOrangeArea.Refresh();
+            lblLargestOrangehape.Refresh();
+            lblLargestRedArea.Refresh();
+            lblLargestRedShape.Refresh();
+            lblLargestShape.Refresh();
+            lblLargestShapeArea.Refresh();
+            lblLargestTotalArea.Refresh();
+            UpdateLables();
+        }
+
         #endregion
 
         #region input 
         /// <summary>
         /// ButtonControls from the inputgroupbox
         /// </summary>
-      
+
         // reset after comboboxselection
         private void cmbSelectShape_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -97,8 +121,10 @@ namespace A01_winform
             btnAddProp2.Visible = false;
 
             //visible after selection from combobox
-            bool selected = (cmbSelectShape.SelectedItem.ToString() == "Rectangle" || cmbSelectShape.SelectedItem.ToString() == "Circle" ||
-                cmbSelectShape.SelectedItem.ToString() == "Triangle" || cmbSelectShape.SelectedItem.ToString() == "Square");
+            bool selected = (cmbSelectShape.SelectedItem.ToString() == "Rectangle" ||
+                             cmbSelectShape.SelectedItem.ToString() == "Circle" ||
+                             cmbSelectShape.SelectedItem.ToString() == "Triangle" ||
+                             cmbSelectShape.SelectedItem.ToString() == "Square");
 
             if (selected)
             {
@@ -199,15 +225,23 @@ namespace A01_winform
             if (lstGreen.SelectedIndex == -1)
                 MessageBox.Show("Please select an item from the listbox.");
             else
+            {
                 shapeRepository.Shapes.RemoveAt(lstGreen.SelectedIndex);
+                RefreshForm();
+                UpdateLables();
+            }
         }
 
         private void btnDeleteOrangeShape_Click(object sender, EventArgs e)
         {
-            if(lstOrange.SelectedIndex == -1)
+            if (lstOrange.SelectedIndex == -1)
                 MessageBox.Show("Please select an item from the listbox.");
             else
+            {
                 shapeRepository.Shapes.RemoveAt(lstOrange.SelectedIndex);
+                RefreshForm();
+                UpdateLables();
+            }
         }
 
         private void btnDeleteRedShape_Click(object sender, EventArgs e)
@@ -215,12 +249,49 @@ namespace A01_winform
             if (lstRed.SelectedIndex == -1)
                 MessageBox.Show("Please select an item from the listbox.");
             else
+            {
                 shapeRepository.Shapes.RemoveAt(lstRed.SelectedIndex);
+                RefreshForm();
+                UpdateLables();
+            }
         }
         #endregion
         #region Output
         public void UpdateLables()
         {
+            lblLargestGreenArea.Text =
+                (shapeRepository.Shapes.Where(x => x.Color == Color.Green)
+                    .OrderByDescending(x => x.Area)
+                    .FirstOrDefault()?
+                    .Area.ToString());
+            lblLargestGreenShape.Text =
+                (shapeRepository.Shapes.Where(x => x.Color == Color.Green)
+                    .OrderByDescending(x => x.Area)
+                    .FirstOrDefault()?
+                    .ToString());
+            lblLargestOrangeArea.Text =
+                (shapeRepository.Shapes.Where(x => x.Color == Color.Orange)
+                    .OrderByDescending(x => x.Area)
+                    .FirstOrDefault()?
+                    .Area.ToString());
+            lblLargestOrangehape.Text =
+                (shapeRepository.Shapes.Where(x => x.Color == Color.Orange)
+                    .OrderByDescending(x => x.Area)
+                    .FirstOrDefault()?
+                    .ToString());
+            lblLargestRedArea.Text =
+                (shapeRepository.Shapes.Where(x => x.Color == Color.Red)
+                    .OrderByDescending(x => x.Area)
+                    .FirstOrDefault()?
+                    .Area.ToString());
+            lblLargestRedShape.Text =
+                (shapeRepository.Shapes.Where(x => x.Color == Color.Red)
+                    .OrderByDescending(x => x.Area)
+                    .FirstOrDefault()?
+                    .ToString());
+            lblLargestShape.Text = (shapeRepository.Shapes.OrderByDescending(x => x.Area).FirstOrDefault()?.Name.ToString());
+            lblLargestShapeArea.Text = (shapeRepository.Shapes.OrderByDescending(x => x.Area).FirstOrDefault()?.Area.ToString());
+            lblLargestTotalArea.Text = shapeRepository.Shapes?.Sum(x => x.Area).ToString();
         }
         #endregion
     }
