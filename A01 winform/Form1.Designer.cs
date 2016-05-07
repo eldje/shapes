@@ -42,11 +42,9 @@
             this.cmbSelectShape = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lstRed = new System.Windows.Forms.ListBox();
             this.btnDeleteRedShape = new System.Windows.Forms.Button();
             this.btnDeleteOrangeShape = new System.Windows.Forms.Button();
             this.btnDeleteGreenShape = new System.Windows.Forms.Button();
-            this.lstGreen = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -65,12 +63,12 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.shapesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lstGreen = new System.Windows.Forms.ListBox();
             this.lstOrange = new System.Windows.Forms.ListBox();
+            this.lstRed = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shapesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -206,12 +204,12 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lstOrange);
             this.groupBox2.Controls.Add(this.lstRed);
+            this.groupBox2.Controls.Add(this.lstOrange);
+            this.groupBox2.Controls.Add(this.lstGreen);
             this.groupBox2.Controls.Add(this.btnDeleteRedShape);
             this.groupBox2.Controls.Add(this.btnDeleteOrangeShape);
             this.groupBox2.Controls.Add(this.btnDeleteGreenShape);
-            this.groupBox2.Controls.Add(this.lstGreen);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
@@ -221,15 +219,6 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Listboxes";
-            // 
-            // lstRed
-            // 
-            this.lstRed.DataSource = this.lstRed.CustomTabOffsets;
-            this.lstRed.FormattingEnabled = true;
-            this.lstRed.Location = new System.Drawing.Point(800, 34);
-            this.lstRed.Name = "lstRed";
-            this.lstRed.Size = new System.Drawing.Size(372, 173);
-            this.lstRed.TabIndex = 9;
             // 
             // btnDeleteRedShape
             // 
@@ -260,16 +249,6 @@
             this.btnDeleteGreenShape.Text = "Delete from list";
             this.btnDeleteGreenShape.UseVisualStyleBackColor = true;
             this.btnDeleteGreenShape.Click += new System.EventHandler(this.btnDeleteGreenShape_Click);
-            // 
-            // lstGreen
-            // 
-            this.lstGreen.DataSource = this.lstGreen.CustomTabOffsets;
-            this.lstGreen.FormattingEnabled = true;
-            this.lstGreen.Location = new System.Drawing.Point(43, 33);
-            this.lstGreen.MultiColumn = true;
-            this.lstGreen.Name = "lstGreen";
-            this.lstGreen.Size = new System.Drawing.Size(372, 173);
-            this.lstGreen.TabIndex = 3;
             // 
             // label7
             // 
@@ -447,17 +426,29 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "The largest \'green\' shape ";
             // 
-            // shapesBindingSource
+            // lstGreen
             // 
-            this.shapesBindingSource.DataSource = typeof(A01_winform.Models.Shapes);
+            this.lstGreen.FormattingEnabled = true;
+            this.lstGreen.Location = new System.Drawing.Point(43, 34);
+            this.lstGreen.Name = "lstGreen";
+            this.lstGreen.Size = new System.Drawing.Size(352, 173);
+            this.lstGreen.TabIndex = 9;
             // 
             // lstOrange
             // 
             this.lstOrange.FormattingEnabled = true;
-            this.lstOrange.Location = new System.Drawing.Point(422, 34);
+            this.lstOrange.Location = new System.Drawing.Point(421, 34);
             this.lstOrange.Name = "lstOrange";
-            this.lstOrange.Size = new System.Drawing.Size(372, 173);
+            this.lstOrange.Size = new System.Drawing.Size(355, 173);
             this.lstOrange.TabIndex = 10;
+            // 
+            // lstRed
+            // 
+            this.lstRed.FormattingEnabled = true;
+            this.lstRed.Location = new System.Drawing.Point(799, 34);
+            this.lstRed.Name = "lstRed";
+            this.lstRed.Size = new System.Drawing.Size(317, 173);
+            this.lstRed.TabIndex = 11;
             // 
             // Form1
             // 
@@ -475,7 +466,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shapesBindingSource)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.shapesBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -498,7 +489,6 @@
         private System.Windows.Forms.Button btnDeleteRedShape;
         private System.Windows.Forms.Button btnDeleteOrangeShape;
         private System.Windows.Forms.Button btnDeleteGreenShape;
-        private System.Windows.Forms.ListBox lstGreen;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -518,8 +508,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ListBox lstRed;
-        private System.Windows.Forms.BindingSource shapesBindingSource;
         private System.Windows.Forms.ListBox lstOrange;
+        private System.Windows.Forms.ListBox lstGreen;
     }
 }
 

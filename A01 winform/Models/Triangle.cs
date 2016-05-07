@@ -6,15 +6,16 @@
         {
             this.Basis = basis;
             this.Height = height;
+            UpdateArea();
+            SetColor();
         }
 
         public int Basis { get; set; }
         public int Height { get; set; }
-        private double _Area;
-        public override double Area
+
+        private void UpdateArea()
         {
-            get { return _Area; }
-            set { _Area = (Height*Basis)/2 ; }
+            Area = Basis*Height;
         }
     }
 }

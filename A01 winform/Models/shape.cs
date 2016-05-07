@@ -1,6 +1,4 @@
-﻿using System.Collections.Specialized;
-
-namespace A01_winform.Models
+﻿namespace A01_winform.Models
 {
     enum Color
     {
@@ -18,28 +16,22 @@ namespace A01_winform.Models
             this.Color = Color.Red;
         }
         public string Name { get; set; }
-        public abstract double Area { get; set; }
-        private Color _Color;
-        public Color Color
+        public double Area { get; set; }
+        public Color Color { get; set; }
+
+        protected void SetColor()
         {
-            get
+            if (Area < 50)
             {
-                return _Color;
+                Color = Color.Green;
             }
-            set
+            else if (Area > 100)
             {
-                if (Area < 50)
-                {
-                    _Color = Color.Green;
-                }
-                if (Area > 100)
-                {
-                    _Color = Color.Red;
-                }
-                else
-                {
-                    _Color = Color.Orange;
-                }
+                Color = Color.Red;
+            }
+            else
+            {
+                Color = Color.Orange;
             }
         }
     }

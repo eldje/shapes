@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace A01_winform.Models
 {
@@ -8,14 +7,15 @@ namespace A01_winform.Models
         public Circle(string name, int radius) : base(name)
         {
             this.Radius = radius;
+            UpdateArea();
+            SetColor();
         }
 
         public int Radius { get; set; }
-        private double _Area;
-        public override double Area
+
+        private void UpdateArea()
         {
-            get { return _Area; }
-            set { _Area = Math.PI * Math.Pow(Radius, 2); }
+            Area = Math.PI*Math.Pow(Radius, 2);
         }
     }
 }

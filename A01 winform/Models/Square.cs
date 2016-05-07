@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace A01_winform.Models
 {
@@ -8,14 +7,14 @@ namespace A01_winform.Models
         public Square(string name, int side) : base(name)
         {
             this.Side = side;
+            UpdateArea();
+            SetColor();
         }
 
         public int Side { get; set; }
-        private double _Area;
-        public override double Area
+        private void UpdateArea()
         {
-            get { return _Area; }
-            set { _Area = Math.Pow(Side,2); }
+            Area = Math.Pow(Side, 2);
         }
     }
 }

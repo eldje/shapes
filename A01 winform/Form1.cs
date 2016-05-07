@@ -2,95 +2,59 @@
 using System.Linq;
 using System.Windows.Forms;
 using A01_winform.Models;
+using A01_winform.Repository;
 
 namespace A01_winform
 {
     public partial class Form1 : Form
     {
+        private ShapeRepository shapeRepository = new ShapeRepository();
+
         public Form1()
         {
             InitializeComponent();
-            lstGreen.DataSource = s1.GreenShapes;
             lstGreen.DisplayMember = "Name";
-            lstOrange.DataSource = s1.OrangeShapes;
             lstOrange.DisplayMember = "Name";
-            lstRed.DataSource = s1.RedShapes;
             lstRed.DisplayMember = "Name";
         }
 
         #region methods to instantiate objects and refresh screens
-        Shapes s1 = new Shapes();
-        
+
         /// <summary>
         /// logic to instantiate object, define color
         /// </summary>
         protected void SetObject()
-        {  
-            if (cmbSelectShape.SelectedItem == "Circle")
+        {
+            switch (cmbSelectShape.SelectedItem.ToString())
             {
-                try
-                {
-                    Shape shape1 = new Circle(txtbName.Text, Convert.ToInt32(txtbProp1.Text));
-                    s1.AddToList(shape1);
-                    RefreshForm();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    throw;
-                }
+                case "Circle":
+                    shapeRepository.AddShape(ShapeForm.Circle, txtbName.Text, Convert.ToInt32(txtbProp1.Text));
+                    break;
+                case "Square":
+                    shapeRepository.AddShape(ShapeForm.Square, txtbName.Text, Convert.ToInt32(txtbProp1.Text));
+                    break;
+                case "Rectangle":
+                    shapeRepository.AddShape(ShapeForm.Rectangle, txtbName.Text, Convert.ToInt32(txtbProp1.Text),
+                        Convert.ToInt32(txtbProp2.Text));
+                    break;
+                case "Triangle":
+                    shapeRepository.AddShape(ShapeForm.Triangle, txtbName.Text, Convert.ToInt32(txtbProp1.Text),
+                        Convert.ToInt32(txtbProp2.Text));
+                    break;
             }
-            if (cmbSelectShape.SelectedItem == "Rectangle")
-            {
-                try
-                {
-                    Shape shape1 = new Rectangle(txtbName.Text, Convert.ToInt32(txtbProp1.Text), Convert.ToInt32(txtbProp2.Text));
-                    s1.AddToList(shape1);
-                    RefreshForm();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    throw;
-                }
-            }
-            if (cmbSelectShape.SelectedItem == "Square")
-            {
-                try
-                {
-                    Shape shape1 = new Square(txtbName.Text, Convert.ToInt32(txtbProp1.Text));
-                    s1.AddToList(shape1);
-                    RefreshForm();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    throw;
-                }
-            }
-            else if(cmbSelectShape.SelectedItem == "Triangle")
-            {
-                try
-                {
-                    Shape shape1 = new Triangle(txtbName.Text, Convert.ToInt32(txtbProp1.Text), Convert.ToInt32(txtbProp2.Text));
-                    s1.AddToList(shape1);
-                    RefreshForm();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    throw;
-                }
-            }
+            RefreshForm();
         }
 
         //Refresh listviews & clear all textboxes
         private void RefreshForm()
         {
-            //listviews
-            lstGreen.Refresh();
-            lstOrange.Refresh();
-            lstRed.Refresh();
+            //lists
+            lstGreen.Items.Clear();
+            lstGreen.Items.AddRange(shapeRepository.Shapes.Where(x => x.Color == Color.Green).ToArray());
+            lstRed.Items.Clear();
+            lstRed.Items.AddRange(shapeRepository.Shapes.Where(x => x.Color == Color.Red).ToArray());
+            lstOrange.Items.Clear();
+            lstOrange.Items.AddRange(shapeRepository.Shapes.Where(x => x.Color == Color.Orange).ToArray());
             //txtboxes
             cmbSelectShape.ResetText();
             txtbName.Clear();
@@ -112,10 +76,13 @@ namespace A01_winform
             btnAddProp2.Visible = false;
         }
         #endregion
+
         #region input 
         /// <summary>
         /// ButtonControls from the inputgroupbox
         /// </summary>
+      
+        // reset after comboboxselection
         private void cmbSelectShape_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             //default visibility after selection
@@ -129,13 +96,9 @@ namespace A01_winform
             txtbProp2.Visible = false;
             btnAddProp2.Visible = false;
 
-            //visible after selection
-            bool selected = false;
-            if (cmbSelectShape.SelectedItem == "Rectangle" || cmbSelectShape.SelectedItem == "Circle" ||
-                cmbSelectShape.SelectedItem == "Triangle" || cmbSelectShape.SelectedItem == "Square")
-            {
-                selected = true;
-            }
+            //visible after selection from combobox
+            bool selected = (cmbSelectShape.SelectedItem.ToString() == "Rectangle" || cmbSelectShape.SelectedItem.ToString() == "Circle" ||
+                cmbSelectShape.SelectedItem.ToString() == "Triangle" || cmbSelectShape.SelectedItem.ToString() == "Square");
 
             if (selected)
             {
@@ -150,16 +113,14 @@ namespace A01_winform
             //general UIcode
             //prop2 stays invisible (circle only has prop1 = radius) => see shape specific code
             //idem sides square
-
             txtbProp1.Visible = true;
             btnAddProp1.Visible = true;
             btnAddName.Visible = false;
             txtbName.Enabled = false;
 
             //shape specific code
-            if (cmbSelectShape.SelectedItem == "Rectangle")
+            if (cmbSelectShape.SelectedItem.ToString() == "Rectangle")
             {
-                //UI
                 lblProp1.Text = "Heigth";
                 lblProp2.Text = "Width";
                 lblProp1.Visible = true;
@@ -167,23 +128,20 @@ namespace A01_winform
                 txtbProp2.Visible = true;
                 btnAddName.Visible = false;
             }
-            if (cmbSelectShape.SelectedItem == "Circle")
+            if (cmbSelectShape.SelectedItem.ToString() == "Circle")
             {
-                //UI
                 lblProp1.Text = "Radius";
                 lblProp1.Visible = true;
                 btnAddName.Visible = false;
             }
-            if (cmbSelectShape.SelectedItem == "Square")
+            if (cmbSelectShape.SelectedItem.ToString() == "Square")
             {
-                //UI
                 lblProp1.Text = "Side";
                 lblProp1.Visible = true;
                 btnAddName.Visible = false;
             }
-            if (cmbSelectShape.SelectedItem == "Triangle")
+            if (cmbSelectShape.SelectedItem.ToString() == "Triangle")
             {
-                //UI
                 lblProp1.Text = "Heigth";
                 lblProp2.Text = "Basis";
                 lblProp1.Visible = true;
@@ -198,12 +156,12 @@ namespace A01_winform
             btnAddProp1.Visible = false;
             txtbProp1.Enabled = false;
 
-            if (cmbSelectShape.SelectedItem == "Rectangle")
+            if (cmbSelectShape.SelectedItem.ToString() == "Rectangle")
             {
                 btnAddProp2.Visible = true;
                 btnAddName.Visible = false;
             }
-            if (cmbSelectShape.SelectedItem == "Circle")
+            if (cmbSelectShape.SelectedItem.ToString() == "Circle")
             {
                 lblProp1.Text = "Radius";
                 lblProp1.Visible = true;
@@ -211,7 +169,7 @@ namespace A01_winform
                 //
                 SetObject();
             }
-            if (cmbSelectShape.SelectedItem == "Square")
+            if (cmbSelectShape.SelectedItem.ToString() == "Square")
             {
                 lblProp1.Text = "Side";
                 lblProp1.Visible = true;
@@ -219,7 +177,7 @@ namespace A01_winform
                 //
                 SetObject();
             }
-            if (cmbSelectShape.SelectedItem == "Triangle")
+            if (cmbSelectShape.SelectedItem.ToString() == "Triangle")
             {
                 txtbProp2.Visible = true;
                 btnAddProp2.Visible = true;
@@ -234,13 +192,14 @@ namespace A01_winform
             SetObject();
         }
         #endregion
+
         #region DeleteFromListButtons
         private void btnDeleteGreenShape_Click(object sender, EventArgs e)
         {
             if (lstGreen.SelectedIndex == -1)
                 MessageBox.Show("Please select an item from the listbox.");
             else
-                s1.GreenShapes.RemoveAt(lstGreen.SelectedIndex);
+                shapeRepository.Shapes.RemoveAt(lstGreen.SelectedIndex);
         }
 
         private void btnDeleteOrangeShape_Click(object sender, EventArgs e)
@@ -248,7 +207,7 @@ namespace A01_winform
             if(lstOrange.SelectedIndex == -1)
                 MessageBox.Show("Please select an item from the listbox.");
             else
-                s1.OrangeShapes.RemoveAt(lstOrange.SelectedIndex);
+                shapeRepository.Shapes.RemoveAt(lstOrange.SelectedIndex);
         }
 
         private void btnDeleteRedShape_Click(object sender, EventArgs e)
@@ -256,16 +215,12 @@ namespace A01_winform
             if (lstRed.SelectedIndex == -1)
                 MessageBox.Show("Please select an item from the listbox.");
             else
-                s1.RedShapes.RemoveAt(lstRed.SelectedIndex);
+                shapeRepository.Shapes.RemoveAt(lstRed.SelectedIndex);
         }
         #endregion
         #region Output
         public void UpdateLables()
         {
-            if (s1.GreenShapes.Count != null)
-            {
-
-            }
         }
         #endregion
     }
