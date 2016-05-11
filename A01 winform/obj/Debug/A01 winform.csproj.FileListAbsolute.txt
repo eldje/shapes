@@ -1,9 +1,9 @@
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\bin\Debug\A01 winform.exe.config
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\bin\Debug\A01 winform.exe
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\bin\Debug\A01 winform.pdb
-D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\obj\Debug\A01_winform.Form1.resources
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\obj\Debug\A01_winform.Properties.Resources.resources
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\obj\Debug\A01 winform.csproj.GenerateResource.Cache
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\obj\Debug\A01 winform.exe
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\obj\Debug\A01 winform.pdb
+D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\obj\Debug\A01_winform.MainPage.resources
 D:\Dropbox\coding\cvo\A6_programmeren_2_Csharp\oefeningen\A01 winform\A01 winform\obj\Debug\A01 winform.csprojResolveAssemblyReference.cache
